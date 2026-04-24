@@ -1,2 +1,0 @@
-# vincouux.github.io
-Portfolio
