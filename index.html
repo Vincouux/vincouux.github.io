@@ -29,34 +29,80 @@
 html{scroll-behavior:smooth}
 body{background:var(--bg);font-family:var(--f);color:var(--ink);-webkit-font-smoothing:antialiased;min-height:100vh}
 
-/* ── Page shell ── */
-.page{max-width:700px;margin:0 auto;padding:52px 24px 80px}
+/* ── Page shell — fluid container ── */
+.page{
+  width:100%;
+  margin:0 auto;
+  /* small: tight padding, up to full width */
+  padding:32px 16px 60px;
+  max-width:100%;
+}
+
+/* tablet ≥ 600px */
+@media(min-width:600px){
+  .page{padding:44px 32px 72px}
+}
+
+/* desktop ≥ 900px — cap width, let it breathe */
+@media(min-width:900px){
+  .page{max-width:780px;padding:52px 40px 80px}
+}
+
+/* wide ≥ 1200px — wider CV, more content, less void */
+@media(min-width:1200px){
+  .page{max-width:960px;padding:60px 0 96px}
+}
 
 /* ── Hero ── */
 .hero{
   display:flex;flex-direction:column;gap:14px;
   padding-bottom:32px;border-bottom:.5px solid var(--sep);
 }
-.hero-top{display:flex;justify-content:space-between;align-items:flex-start;gap:40px}
-.hero-name{font-size:44px;font-weight:700;letter-spacing:-.04em;line-height:1.0;color:var(--ink);margin-bottom:6px}
+
+/* on small screens: links go below as a row */
+.hero-top{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+.hero-name{font-size:36px;font-weight:700;letter-spacing:-.04em;line-height:1.0;color:var(--ink);margin-bottom:6px}
 .hero-sub{font-size:15px;font-weight:400;color:var(--ink3);letter-spacing:-.01em;margin-bottom:10px}
 .avail{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;letter-spacing:-.01em;color:var(--ink2);background:var(--fill);padding:5px 11px;border-radius:999px}
 .avail-dot{width:6px;height:6px;border-radius:50%;background:#34c759;flex-shrink:0}
 @media(prefers-color-scheme:dark){.avail-dot{background:#30d158}}
 .hero-bio{font-size:14px;line-height:1.65;color:var(--ink2);letter-spacing:-.01em}
 
-/* ── Right column: plain links, stacked ── */
+/* links: row on small */
 .hero-links{
-  display:flex;flex-direction:column;align-items:flex-end;
-  gap:9px;padding-top:6px;flex-shrink:0;
+  display:flex;flex-direction:row;flex-wrap:wrap;
+  align-items:center;gap:14px 20px;
 }
 
+/* on larger screens: links go right, side-by-side with name */
+@media(min-width:640px){
+  .hero-name{font-size:44px}
+  .hero-top{
+    flex-direction:row;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:40px;
+  }
+  .hero-links{
+    flex-direction:column;
+    align-items:flex-end;
+    gap:9px;
+    padding-top:6px;
+    flex-shrink:0;
+  }
+}
+
+/* ── Right column: plain links ── */
 .hero-link{
   display:inline-flex;align-items:center;gap:5px;
   font-size:12.5px;font-weight:400;letter-spacing:-.01em;
   color:var(--ink3);text-decoration:none;
   transition:color .15s;
-  /* no background, no border — reads as plain text on print */
 }
 .hero-link:hover{color:var(--blue)}
 .hero-link svg{width:11px;height:11px;opacity:.5;flex-shrink:0}
@@ -112,8 +158,17 @@ ul.dots li::before{
   padding:3px 8px;border-radius:999px;
 }
 
-/* ── Skills two-col ── */
-.skills-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
+/* ── Skills grid — 1 col on mobile, 3 on wider ── */
+.skills-grid{display:grid;grid-template-columns:1fr;gap:16px}
+
+@media(min-width:520px){
+  .skills-grid{grid-template-columns:1fr 1fr;gap:18px}
+}
+
+@media(min-width:760px){
+  .skills-grid{grid-template-columns:1fr 1fr 1fr;gap:18px}
+}
+
 .skill-label{
   font-size:11px;font-weight:600;text-transform:uppercase;
   letter-spacing:.05em;color:var(--ink3);margin-bottom:7px;
@@ -145,21 +200,15 @@ ul.dots li::before{
   .page{padding:28px 0 0;max-width:100%}
   .hero-name{font-size:34px}
   .avail{display:none}
-  /* links look like plain text */
+  .hero-top{flex-direction:row;justify-content:space-between}
+  .hero-links{flex-direction:column;align-items:flex-end}
   .hero-link{color:#444!important}
   .pill,.interest{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .section-divider-line{background:rgba(0,0,0,.15)}
   .section-divider-label{color:#888}
   ul.dots li{color:#333}
   ul.dots li::before{background:#888}
-}
-
-@media(max-width:560px){
-  .hero{grid-template-columns:1fr;gap:20px 0}
-  .hero-links{align-items:flex-start;flex-direction:row;flex-wrap:wrap;gap:12px 18px}
-  .hero-name{font-size:34px}
-  .skills-grid{grid-template-columns:1fr 1fr}
-  .page{padding:36px 18px 60px}
+  .skills-grid{grid-template-columns:1fr 1fr 1fr}
 }
 </style>
 </head>
