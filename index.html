@@ -8,21 +8,25 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
 :root{
-  --bg:    #f2f2f7;
-  --ink:   #000;
-  --ink2:  rgba(60,60,67,.75);
-  --ink3:  rgba(60,60,67,.45);
-  --sep:   rgba(60,60,67,.10);
-  --fill:  rgba(120,120,128,.10);
-  --blue:  #007aff;
+  --bg:    #e8e8ed;
+  --ink:   #0a0a0c;
+  --ink2:  rgba(10,10,14,.88);
+  --ink3:  rgba(10,10,14,.52);
+  --sep:   rgba(10,10,14,.14);
+  --fill:  rgba(10,10,14,.13);
+  --blue:  #0055bb;
+  --pill-ink: rgba(10,10,14,.72);
+  --pill-bg:  rgba(10,10,14,.11);
   --f: -apple-system,'SF Pro Text','SF Pro Display',BlinkMacSystemFont,'Helvetica Neue',sans-serif;
 }
 
 @media(prefers-color-scheme:dark){
   :root{
-    --bg:#000; --ink:#f5f5f7;
-    --ink2:rgba(235,235,245,.72); --ink3:rgba(235,235,245,.40);
-    --sep:rgba(84,84,88,.30); --fill:rgba(120,120,128,.18); --blue:#0a84ff;
+    --bg:#18181b; --ink:#f5f5f7;
+    --ink2:rgba(235,235,245,.80); --ink3:rgba(235,235,245,.45);
+    --sep:rgba(120,120,130,.28); --fill:rgba(140,140,150,.18); --blue:#3b9eff;
+    --pill-ink: rgba(235,235,245,.65);
+    --pill-bg:  rgba(140,140,150,.20);
   }
 }
 
@@ -56,7 +60,7 @@ body{background:var(--bg);font-family:var(--f);color:var(--ink);-webkit-font-smo
 /* ── Hero ── */
 .hero{
   display:flex;flex-direction:column;gap:14px;
-  padding-bottom:32px;border-bottom:.5px solid var(--sep);
+  padding-bottom:10px;
 }
 
 /* on small screens: links go below as a row */
@@ -154,7 +158,7 @@ ul.dots li::before{
 .pills{display:flex;flex-wrap:wrap;gap:5px}
 .pill{
   font-size:10.5px;font-weight:500;
-  color:var(--ink3);background:var(--fill);
+  color:var(--pill-ink);background:var(--pill-bg);
   padding:3px 8px;border-radius:999px;
 }
 
@@ -177,8 +181,8 @@ ul.dots li::before{
 /* ── Interests ── */
 .interests{display:flex;flex-wrap:wrap;gap:6px}
 .interest{
-  font-size:13px;color:var(--ink2);
-  background:var(--fill);padding:5px 12px;
+  font-size:13px;color:var(--pill-ink);
+  background:var(--pill-bg);padding:5px 12px;
   border-radius:999px;letter-spacing:-.01em;
 }
 
@@ -196,19 +200,35 @@ ul.dots li::before{
 
 /* ── Print ── */
 @media print{
+  /* force light theme values regardless of system dark mode */
+  :root{
+    --bg:#fff;
+    --ink:#0a0a0c;
+    --ink2:rgba(10,10,14,.88);
+    --ink3:rgba(10,10,14,.52);
+    --sep:rgba(10,10,14,.14);
+    --fill:rgba(10,10,14,.10);
+    --blue:#0055bb;
+    --pill-ink:rgba(10,10,14,.72);
+    --pill-bg:rgba(10,10,14,.10);
+  }
+
+  /* preserve all background colors and text colors */
+  *{
+    -webkit-print-color-adjust:exact!important;
+    print-color-adjust:exact!important;
+  }
+
   body{background:#fff}
-  .page{padding:28px 0 0;max-width:100%}
+  .page{padding:20px 0 0;max-width:100%}
   .hero-name{font-size:34px}
   .avail{display:none}
   .hero-top{flex-direction:row;justify-content:space-between}
-  .hero-links{flex-direction:column;align-items:flex-end}
-  .hero-link{color:#444!important}
-  .pill,.interest{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .section-divider-line{background:rgba(0,0,0,.15)}
-  .section-divider-label{color:#888}
-  ul.dots li{color:#333}
-  ul.dots li::before{background:#888}
+  .hero-links{flex-direction:column;align-items:flex-end;gap:7px}
+  .hero-link{color:rgba(10,10,14,.52)!important;font-size:11.5px}
   .skills-grid{grid-template-columns:1fr 1fr 1fr}
+  .section-divider{margin:22px 0 16px}
+  .entry{margin-bottom:18px}
 }
 </style>
 </head>
@@ -223,7 +243,7 @@ ul.dots li::before{
       <div class="hero-left">
         <h1 class="hero-name">Vincent Rivière</h1>
         <p class="hero-sub">Tech Lead · AI/ML Infrastructure · London / Paris</p>
-        <div class="avail"><span class="avail-dot"></span>Available — full remote, short-term</div>
+        <div class="avail"><span class="avail-dot"></span>Available · full remote, short-term</div>
       </div>
       <div class="hero-links">
         <a href="https://linkedin.com/in/vincentriviere974" target="_blank" class="hero-link">
@@ -236,7 +256,7 @@ ul.dots li::before{
         </a>
       </div>
     </div>
-    <p class="hero-bio">Engineering leader with 7+ years building real-time AI inference systems at scale. From architecting a billion-entry medical database at Odin Vision to founding a cloud GPU gaming platform — I work at the intersection of low-latency systems, machine learning, and product.</p>
+    <p class="hero-bio">Engineering leader with 7+ years building real-time AI inference systems at scale. From a billion-entry medical database at Odin Vision to founding a cloud GPU gaming platform, I work at the intersection of low-latency systems, machine learning and product.</p>
   </div>
 
   <!-- ── Education ── -->
@@ -247,10 +267,10 @@ ul.dots li::before{
 
   <div class="entry">
     <div class="entry-head">
-      <span class="entry-title">EPITA — School of Engineering in Computer Science</span>
+      <span class="entry-title">EPITA · School of Engineering in Computer Science</span>
       <span class="entry-date">Paris</span>
     </div>
-    <p class="entry-sub">SCIA Major — Cognitive Science & Advanced Computer Science (AI / Machine Learning)</p>
+    <p class="entry-sub">Master of Science · SCIA Major — Cognitive Science & Advanced Computer Science (AI / Machine Learning)</p>
   </div>
 
   <!-- ── Skills ── -->
@@ -278,13 +298,11 @@ ul.dots li::before{
       <div class="pills">
         <span class="pill">GCP</span>
         <span class="pill">AWS</span>
-        <span class="pill">Azure</span>
         <span class="pill">Docker</span>
         <span class="pill">Compose</span>
         <span class="pill">Kubernetes</span>
         <span class="pill">Helm</span>
         <span class="pill">PostgreSQL</span>
-        <span class="pill">Django</span>
         <span class="pill">GitLab CI</span>
         <span class="pill">Linux</span>
       </div>
@@ -292,16 +310,13 @@ ul.dots li::before{
     <div>
       <p class="skill-label">Expertise</p>
       <div class="pills">
-        <span class="pill">System Architecture</span>
+        <span class="pill">Architecture</span>
         <span class="pill">Real-time Inference</span>
         <span class="pill">Low Latency</span>
         <span class="pill">Scale</span>
-        <span class="pill">GPU Programming</span>
         <span class="pill">Triton</span>
         <span class="pill">TensorRT</span>
         <span class="pill">PyTorch</span>
-        <span class="pill">ML Pipelines</span>
-        <span class="pill">Medical AI</span>
         <span class="pill">Team Lead</span>
       </div>
     </div>
@@ -315,45 +330,14 @@ ul.dots li::before{
 
   <div class="entry">
     <div class="entry-head">
-      <span class="entry-title">Odin Vision <span style="font-weight:400;color:var(--ink3)">— acquired by Olympus (2023)</span></span>
-      <span class="entry-date">2020 – 2026</span>
-    </div>
-    <p class="entry-sub">Tech Lead & Key Expert · London, UK · Early Joiner</p>
-    <ul class="dots">
-      <li>Built the core cloud-AI inference platform powering CADDIE, CADU and SMARTIBD — CE-marked and FDA-cleared medical devices that overlay real-time AI detections on the endoscopist's live video feed during colonoscopy and gastroscopy procedures.</li>
-      <li>Engineered the full screen-to-screen pipeline: video captured in the endoscopy room is streamed to cloud GPUs, processed by AI models, and detections are overlaid back on the clinician's screen in under 40 ms end-to-end.</li>
-      <li>Scaled the system to hundreds of simultaneous live procedures, each generating ~25 inferences per second — peaking at over 10,000 inferences per second across the fleet, backed by a billion-entry database of inference events, annotations and audit trails.</li>
-      <li>Products deployed in hospitals across the UK, Spain, Germany, Poland and Italy; CADDIE received FDA clearance in 2024.</li>
-      <li>Led a team of engineers as the platform matured — driving technical direction, architecture decisions, code quality and delivery across the full stack.</li>
-      <li>Steered post-acquisition technical alignment with Olympus's global endoscopy roadmap and Digital Excellence Center strategy.</li>
-    </ul>
-    <div class="pills">
-      <span class="pill">Real-time Inference</span>
-      <span class="pill">&lt; 40ms Latency</span>
-      <span class="pill">Computer Vision</span>
-      <span class="pill">Medical AI</span>
-      <span class="pill">Python</span>
-      <span class="pill">Triton</span>
-      <span class="pill">TensorRT</span>
-      <span class="pill">PostgreSQL</span>
-      <span class="pill">Kubernetes</span>
-      <span class="pill">Helm</span>
-      <span class="pill">AWS</span>
-      <span class="pill">Architecture</span>
-    </div>
-  </div>
-
-  <div class="entry">
-    <div class="entry-head">
-      <span class="entry-title"><a href="https://replayit.gg" target="_blank">Replayit.gg ↗</a></span>
+      <span class="entry-title">Replayit.gg</span>
       <span class="entry-date">2024 – Present</span>
     </div>
     <p class="entry-sub">Founder · Remote</p>
     <ul class="dots">
-      <li>Founded and built a cloud gaming platform that streams League of Legends replays (Riot Games) on demand directly in the browser — no client, no download required.</li>
-      <li>Architecture: on-demand GPU-equipped VMs spin up per session, run the game client, and stream the replay via low-latency live streaming to any device.</li>
-      <li>Replay controls (pause, rewind, skip, camera POV), cloud recording, and MP4 download — supports all regions across patches.</li>
-      <li>Live and generating revenue.</li>
+      <li>Built a browser-based cloud gaming platform to stream League of Legends replays on demand, no client install required.</li>
+      <li>On-demand GPU VMs spin up per session, run the game client, and stream via low-latency live video to any device.</li>
+      <li>Full replay controls (pause, rewind, skip, camera POV), cloud recording and MP4 export across all regions and patches.</li>
     </ul>
     <div class="pills">
       <span class="pill">Cloud GPU</span>
@@ -363,6 +347,32 @@ ul.dots li::before{
       <span class="pill">Python</span>
       <span class="pill">Docker</span>
       <span class="pill">Compose</span>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head">
+      <span class="entry-title">Odin Vision <span style="font-weight:400;color:var(--ink3)">acquired by Olympus (2023)</span></span>
+      <span class="entry-date">2020 – 2026</span>
+    </div>
+    <p class="entry-sub">Tech Lead & Key Expert · London, UK · Early Joiner</p>
+    <ul class="dots">
+      <li>Built the cloud-AI inference platform for CE-marked and FDA-cleared endoscopy devices, with real-time polyp detection, dysplasia analysis and IBD scoring overlaid on the clinician's live feed.</li>
+      <li>Engineered the full screen-to-screen pipeline, from video capture in the endoscopy room through cloud GPU inference and back to the clinician's screen in under 40 ms.</li>
+      <li>Scaled to hundreds of simultaneous procedures at roughly 50 inferences per second each, peaking at 25,000 inferences per second fleet-wide, with a billion-entry audit database.</li>
+      <li>Led the engineering team on technical direction, architecture and delivery.</li>
+      <li>Drove post-acquisition alignment with Olympus's global endoscopy roadmap.</li>
+    </ul>
+    <div class="pills">
+      <span class="pill">Real-time Inference</span>
+      <span class="pill">&lt; 40ms Latency</span>
+      <span class="pill">Computer Vision</span>
+      <span class="pill">Medical AI</span>
+      <span class="pill">Python</span>
+      <span class="pill">Triton</span>
+      <span class="pill">TensorRT</span>
+      <span class="pill">Kubernetes</span>
+      <span class="pill">AWS</span>
     </div>
   </div>
 
@@ -378,8 +388,7 @@ ul.dots li::before{
       <span class="entry-date">EPITA · 2019</span>
     </div>
     <ul class="dots">
-      <li>Built a complete deep learning framework entirely from scratch in C++ and CUDA — from arithmetic primitives and memory management up to layer abstractions, automatic differentiation, and a training interface.</li>
-      <li>No external ML library used at any level; CUDA kernels written by hand for full GPU acceleration.</li>
+      <li>Deep learning framework in C++ and CUDA built entirely from scratch, from arithmetic primitives and memory management up to autodiff, layer abstractions and a training interface. No external library at any level.</li>
     </ul>
     <div class="pills">
       <span class="pill">C++</span>
@@ -391,10 +400,10 @@ ul.dots li::before{
   <div class="entry">
     <div class="entry-head">
       <span class="entry-title">News Broadcast Segmentation</span>
-      <span class="entry-date">EPITA · PFE · 2020</span>
+      <span class="entry-date">EPITA · 2020</span>
     </div>
     <ul class="dots">
-      <li>Final-year project — automatic detection and segmentation of news story segments within French TV broadcasts.</li>
+      <li>Automatic detection and segmentation of story segments within French TV news broadcasts.</li>
     </ul>
     <div class="pills">
       <span class="pill">Python</span>
@@ -405,11 +414,11 @@ ul.dots li::before{
 
   <div class="entry">
     <div class="entry-head">
-      <span class="entry-title">42sh — Unix Shell from Scratch</span>
+      <span class="entry-title">42sh · Unix Shell from Scratch</span>
       <span class="entry-date">EPITA · 2018</span>
     </div>
     <ul class="dots">
-      <li>Full POSIX-compliant terminal shell in C: lexer, parser, AST, builtins, pipes, redirections, job control.</li>
+      <li>POSIX-compliant shell in C — lexer, parser, AST, builtins, pipes, redirections, job control.</li>
     </ul>
     <div class="pills">
       <span class="pill">C</span><span class="pill">POSIX</span><span class="pill">Systems</span>
@@ -426,7 +435,7 @@ ul.dots li::before{
     <span class="interest">🎮 Video Games</span>
     <span class="interest">🎾 Tennis & Padel</span>
     <span class="interest">💻 Computer Science</span>
-    <span class="interest">📰 Current Affairs</span>
+    <span class="interest">📰 News & Current Events</span>
   </div>
 
 </div><!-- /page -->
